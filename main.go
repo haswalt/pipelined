@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"os"
 	"time"
 
@@ -50,7 +51,11 @@ func main() {
 
 			// just use the entire asset for now
 
+			PrintMemoryUsage(fmt.Sprintf("Track %d - Load asset", i))
+
 			track.AddClip(j*4, asset.Floating)
+
+			PrintMemoryUsage(fmt.Sprintf("Track %d - Add clip", i))
 		}
 
 		line, _ := pipe.Routing{
@@ -61,7 +66,7 @@ func main() {
 		lines = append(lines, line)
 	}
 
-	PrintMemoryUsage("Pre Mix")
+	PrintMemoryUsage("Pre mix")
 
 	out, _ := os.Create("demo.wav")
 	defer out.Close()
